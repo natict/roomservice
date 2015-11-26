@@ -38,3 +38,8 @@ class MysqlDatabase(Mysql):
         except pymysql.ProgrammingError as e:
             abort(400, e.args)
 
+    def delete(self, dbname):
+        try:
+            self.cursor.execute('drop database if exists ' + dbname)
+        except pymysql.ProgrammingError as e:
+            abort(400, e.args)

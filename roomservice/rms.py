@@ -8,6 +8,7 @@ from flask_restful import Api
 from memory import Memory
 from mysql import Mysql
 from processes import Processes, Process
+import system
 
 
 def _get_os_props():
@@ -26,8 +27,11 @@ def main(port, debug, run_command):
 
         api.add_resource(Processes, '/processes')
         api.add_resource(Memory, '/memory')
-        api.add_resource(Mysql, '/mysql/show/<cmd>')
+        api.add_resource(Mysql, '/app/mysql/show/<cmd>')
+        api.add_resource(Mysql, '/app/mysql')
         api.add_resource(Process, '/processes/<int:pid>')
+
+        app.register_blueprint(system.blueprint)
 
         app.run(port=port, debug=debug)
 

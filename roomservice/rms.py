@@ -5,6 +5,7 @@ import platform
 
 from flask import Flask
 from flask_restful import Api
+from processes import Processes
 
 
 def _get_os_props():
@@ -31,6 +32,8 @@ def main(port, debug, run_command):
     else:
         app = Flask('roomservice')
         api = Api(app)
+
+        api.add_resource(Processes, '/processes')
 
         app.run(port=port, debug=debug)
 

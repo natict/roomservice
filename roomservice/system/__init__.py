@@ -27,8 +27,9 @@ class PackageResource(Resource):
 
 class DnfPackageProvider(object):
     def __init__(self):
-        self._dnf = sh.Command('dnf')
-        self._rpm = sh.Command('rpm')
+        # self._dnf = sh.Command('dnf')
+        # self._rpm = sh.Command('rpm')
+        pass
 
 
     def list(self):

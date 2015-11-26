@@ -1,6 +1,6 @@
 import pymysql
 from flask_restful import Resource
-
+from flask import abort
 
 class Mysql(Resource):
     def __init__(self):
@@ -19,3 +19,5 @@ class Mysql(Resource):
     def get(self, cmd):
         if cmd == 'processlist':
             return self.show_processlist()
+        else:
+            abort(400)

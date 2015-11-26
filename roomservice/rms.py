@@ -23,7 +23,7 @@ def main(port, debug, run_command):
         app = Flask('roomservice')
         api = Api(app)
 
-        api.add_resource(Mysql, '/app/mysql')
+        api.add_resource(Mysql, '/app/mysql/<cmd>')
 
         app.register_blueprint(system.blueprint)
 

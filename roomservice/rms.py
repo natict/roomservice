@@ -5,7 +5,7 @@ import platform
 
 from flask import Flask
 from flask_restful import Api
-from mysql import Mysql
+from mysql import Mysql, MysqlDatabase
 import system
 
 
@@ -24,6 +24,7 @@ def main(port, debug, run_command):
         api = Api(app)
 
         api.add_resource(Mysql, '/app/mysql/<cmd>')
+        api.add_resource(MysqlDatabase, '/app/mysql/databases/<dbname>')
 
         app.register_blueprint(system.blueprint)
 

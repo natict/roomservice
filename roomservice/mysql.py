@@ -21,4 +21,20 @@ class Mysql(Resource):
         if cmd in ALLOWED_SHOW:
             return self._execute('show ' + cmd)
         else:
-            abort(400)
+            abort(404)
+
+
+class MysqlDatabase(Mysql):
+    def get(self, dbname):
+        try:
+            self.connection.select_db(dbname)
+        except pymysql.InternalError as e:
+            abort(400, e.args)
+        return self._execute('show tables')
+
+    def post(self, dbname):
+        try:
+            self.cursor.execute('create database ' + dbname)
+        except pymysql.ProgrammingError as e:
+            abort(400, e.args)
+

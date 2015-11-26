@@ -15,6 +15,7 @@ setup(
         'click==6.0',
         'Flask==0.10.1',
         'Flask-RESTful==0.3.4',
-        'flask-restful-swagger==0.19'
+        'flask-restful-swagger==0.19',
+        'psutil==3.3.0'
     ]
 )

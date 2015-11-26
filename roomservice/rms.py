@@ -6,6 +6,7 @@ import platform
 from flask import Flask
 from flask_restful import Api
 from processes import Processes
+from memory import Memory
 
 
 def _get_os_props():
@@ -23,6 +24,7 @@ def main(port, debug, run_command):
         api = Api(app)
 
         api.add_resource(Processes, '/processes')
+        api.add_resource(Memory, '/memory')
 
         app.run(port=port, debug=debug)
 

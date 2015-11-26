@@ -26,7 +26,7 @@ def main(port, debug, run_command):
 
         api.add_resource(Processes, '/processes')
         api.add_resource(Memory, '/memory')
-        api.add_resource(Mysql, '/mysql')
+        api.add_resource(Mysql, '/mysql/show/<cmd>')
         api.add_resource(Process, '/processes/<int:pid>')
 
         app.run(port=port, debug=debug)

@@ -1,6 +1,8 @@
 from flask_restful import Resource, Api
 from flask import Blueprint
 import sh
+from memory import Memory
+from processes import Processes, Process
 
 
 blueprint = Blueprint('system', __name__)
@@ -40,3 +42,6 @@ package_provider = DnfPackageProvider()
 
 api.add_resource(Packages, '/packages', resource_class_kwargs={'provider': package_provider})
 api.add_resource(PackageResource, '/packages/<string:package_name>', resource_class_kwargs={'provider': package_provider})
+api.add_resource(Memory, '/memory')
+api.add_resource(Processes, '/processes')
+api.add_resource(Process, '/processes/<int:pid>')

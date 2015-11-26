@@ -4,9 +4,9 @@ import sh
 from memory import Memory
 from processes import Processes, Process
 
-
 blueprint = Blueprint('system', __name__)
 api = Api(blueprint)
+
 
 
 class Packages(Resource):
@@ -26,6 +26,15 @@ class PackageResource(Resource):
 
 
 class DnfPackageProvider(object):
+    @staticmethod
+    def is_compatible():
+        try:
+            sh.Command('dnf')
+            sh.Command('rpm')
+            return True
+        except Exception:
+            return False
+
     def __init__(self):
         # self._dnf = sh.Command('dnf')
         # self._rpm = sh.Command('rpm')
@@ -39,7 +48,13 @@ class DnfPackageProvider(object):
 
 # TODO: use dynamic providers
 # package_provider = provider_for('packages', os_info)
-package_provider = DnfPackageProvider()
+for pkg_provider in [DnfPackageProvider]:
+    if pkg_provider.is_compatible():
+        package_provider = pkg_provider()
+        break
+else:
+    package_provider = None
+
 
 api.add_resource(Packages, '/packages', resource_class_kwargs={'provider': package_provider})
 api.add_resource(PackageResource, '/packages/<string:package_name>', resource_class_kwargs={'provider': package_provider})

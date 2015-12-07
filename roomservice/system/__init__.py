@@ -4,6 +4,8 @@ import sh
 from memory import Memory
 from processes import Processes, Process
 from services import Services
+from platform import Platform
+
 
 blueprint = Blueprint('system', __name__)
 api = Api(blueprint)
@@ -66,3 +68,4 @@ api.add_resource(Memory, '/memory')
 api.add_resource(Processes, '/processes')
 api.add_resource(Process, '/processes/<int:pid>')
 api.add_resource(Services, '/services')
+api.add_resource(Platform, '/platform')

@@ -1,10 +1,13 @@
 from flask_restful import Resource, Api
 from flask import Blueprint
 import sh
-from memory import Memory
-from processes import Processes, Process
-from services import Services
-from platform import Platform
+
+import memory
+import processes
+import services
+import platform
+import cpu
+import disk
 
 
 blueprint = Blueprint('system', __name__)
@@ -64,8 +67,15 @@ api.add_resource(
 api.add_resource(
     PackageResource, '/packages/<string:package_name>',
     resource_class_kwargs={'provider': package_provider})
-api.add_resource(Memory, '/memory')
-api.add_resource(Processes, '/processes')
-api.add_resource(Process, '/processes/<int:pid>')
-api.add_resource(Services, '/services')
-api.add_resource(Platform, '/platform')
+api.add_resource(memory.Memory, '/memory')
+api.add_resource(processes.Processes, '/processes')
+api.add_resource(processes.Process, '/processes/<int:pid>')
+api.add_resource(services.Services, '/services')
+api.add_resource(platform.Platform, '/platform')
+api.add_resource(cpu.CpuLoad, '/cpu/load')
+api.add_resource(cpu.CpuTimes, '/cpu/times')
+api.add_resource(cpu.CpuCores, '/cpu/cores')
+api.add_resource(disk.DiskPartitions, '/disk/partitions')
+api.add_resource(disk.DiskUsage, '/disk/usage/<string:path>')
+api.add_resource(disk.DiskIO, '/disk/io')
+api.add_resource(disk.DiskIOPerDisk, '/disk/ioperdisk')
